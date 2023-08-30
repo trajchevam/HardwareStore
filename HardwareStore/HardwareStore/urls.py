@@ -16,15 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from HardwareEShop.views import index, products, cart, addCartItem, deleteCartItem
+from HardwareEShop.views import index, products, cart, addCartItem, deleteCartItem, signUp, account, addQuantityOfCartItem, removeQuantityOfCartItem
+from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', index, name="index"),
+    path('signUp/', signUp, name="signUp"),
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('accounts/logout/', LogoutView.as_view(), name='logout'),
+    path('accounts/profile/', account, name="account"),
+    path('home/', index, name="index"),
     path('products/', products, name="products"),
     path('cart/', cart, name="cart"),
     path('addCartItem/<int:product_id>', addCartItem, name="addCartItem"),
+    path('cart/addQuantityOfCartItem/<int:cart_item_id>', addQuantityOfCartItem, name="addQuantityOfCartItem"),
+    path('cart/removeQuantityOfCartItem/<int:cart_item_id>', removeQuantityOfCartItem, name="removeQuantityOfCartItem"),
     path('cart/deleteCartItem/<int:cart_item_id>/', deleteCartItem, name="deleteCartItem"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

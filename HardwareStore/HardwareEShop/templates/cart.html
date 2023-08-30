@@ -25,9 +25,21 @@
             </ul>
         </div>
          <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+             {% if user.is_authenticated %}
+                 <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'logout' %}">Log out</a>
                 </li>
+             {% else %}
+                 <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'login' %}">Log in</a>
+                 </li>
+                 <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'signUp' %}">Sign up</a>
+                </li>
+             {% endif %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+            </li>
          </ul>
     </div>
 </nav>
@@ -37,12 +49,15 @@
         {% for cart_item in cart_items %}
             <div class="col-md-2">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 400px">
                         <img src="{{MEDIA_URL}}{{cart_item.product.image.url}}" class="card-img-top" alt="">
                         <p class="card-text">{{ cart_item.product }}</p>
-                        <p class="card-text"> Quantity: {{ cart_item.quantity }}</p>
-                        <a href="{% url 'deleteCartItem' cart_item.id %}" class="btn btn-secondary">Remove from cart</a>
-                     </div>
+                        <p class="card-text"> Price: {{ cart_item.product.price }}</p>
+                        <a href="{% url 'removeQuantityOfCartItem' cart_item.id %}" class="btn btn-primary">-</a>
+                        <span class="card-text"> {{ cart_item.quantity }} </span>
+                        <a href="{% url 'addQuantityOfCartItem' cart_item.id %}" class="btn btn-primary">+</a>
+                        <a href="{% url 'deleteCartItem' cart_item.id %}" class="btn btn-secondary" style="margin-top: 10px">Remove from cart</a>
+                    </div>
                 </div>
             </div>
             {% if forloop.counter|divisibleby:6 and not forloop.last %}
@@ -54,8 +69,13 @@
 
         {% if cart_items.count > 0 %}
             <div style="margin: 20px">
+            <div>
+                <p>Sum: <span> {{ sum }} </span></p>
+            </div>
                 <a href="#" class="btn btn-danger">Order</a>
             </div>
+        {% else %}
+            <h3>No products in cart</h3>
         {% endif %}
 </div>
 
