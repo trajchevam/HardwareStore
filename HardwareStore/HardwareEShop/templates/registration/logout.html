@@ -8,23 +8,18 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'index' %}">HarwareStore</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'index' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'products' %}">Products</a>
-                </li>
-            </ul>
+        <a class="navbar-brand" href="{% url 'index' %}" style="width: 10%">
+                <img src="/images/images/Group 8.png" alt="logo" style="width: 80%">
+        </a>
+        <div >
+                <input type="text" placeholder="Search for products..." style="border: none; background: #D9D9D9; border-radius: 10px" >
+                <button style="border: none; background: none">
+                    <img src="/images/images/Group 47.png" alt="logo" style="width: 15px; margin-left: 0px; margin-bottom: 4px">
+                </button>
         </div>
-         <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto">
              {% if user.is_authenticated %}
                  <li class="nav-item active">
                     <a class="nav-link" href="{% url 'logout' %}">Log out</a>
@@ -38,9 +33,25 @@
                 </li>
              {% endif %}
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+                <a class="nav-link" href="{% url 'cart' %}">
+                    <img src="/images/images/Group 10.png" alt="cart" style="width: 50%">
+                </a>
             </li>
          </ul>
+    </div>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light"  style="background: #941B0C">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link  text-white" href="{% url 'products' %}">Products</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 

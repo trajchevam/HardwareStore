@@ -19,10 +19,18 @@ def signUp(request):
     else:
         form = SignUpForm()
     return render(request, 'signUp.html', {'form': form})
+
 def products(request):
     querryset = Product.objects.all()
     context = {"products": querryset}
     return render(request,'products.html', context=context)
+
+def productDetails (request, product_id):
+
+    product = Product.objects.get(id = product_id)
+    context = {"product": product}
+
+    return render(request, "productDetail.html", {"product": product})
 
 @login_required
 def cart(request):

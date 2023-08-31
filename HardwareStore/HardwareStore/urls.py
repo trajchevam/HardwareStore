@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from HardwareEShop.views import index, products, cart, addCartItem, deleteCartItem, signUp, account, addQuantityOfCartItem, removeQuantityOfCartItem
+from HardwareEShop.views import index, products, cart, addCartItem, deleteCartItem, signUp, account, addQuantityOfCartItem, removeQuantityOfCartItem, productDetails
 from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +31,7 @@ urlpatterns = [
     path('products/', products, name="products"),
     path('cart/', cart, name="cart"),
     path('addCartItem/<int:product_id>', addCartItem, name="addCartItem"),
+    path('productDetails/<int:product_id>', productDetails, name="productDetails"),
     path('cart/addQuantityOfCartItem/<int:cart_item_id>', addQuantityOfCartItem, name="addQuantityOfCartItem"),
     path('cart/removeQuantityOfCartItem/<int:cart_item_id>', removeQuantityOfCartItem, name="removeQuantityOfCartItem"),
     path('cart/deleteCartItem/<int:cart_item_id>/', deleteCartItem, name="deleteCartItem"),
