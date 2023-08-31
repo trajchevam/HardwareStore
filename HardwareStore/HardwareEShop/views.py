@@ -26,16 +26,26 @@ def products(request):
 
 @login_required
 def cart(request):
-    cart = Cart.objects.get(user=request.user)
-    cart_items = cart.cartitem_set.all()
-    all = 0
+    try:
+        cart = Cart.objects.get(user=request.user)
+    except Cart.DoesNotExist:
+        cart = Cart.objects.create(user=request.user)
 
-    for cart_item in cart_items:
-       all += cart_item.product.price * cart_item.quantity
+    all_total = 0
+    cart_items = []
 
-    context = {"cart_items": cart_items, "sum": all}
+    if cart:
+        cart_items = cart.cartitem_set.all()
 
-    return render(request,'cart.html', context=context)
+        for cart_item in cart_items:
+            all_total += cart_item.product.price * cart_item.quantity
+
+    context = {
+        "cart_items": cart_items,
+        "sum": all_total,
+    }
+
+    return render(request, 'cart.html', context=context)
 
 @login_required
 def addCartItem (request, product_id):

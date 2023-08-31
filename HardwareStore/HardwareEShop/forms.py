@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from .models import Cart, CartItem, User
 
 class CartItemForm(forms.ModelForm):
@@ -11,12 +12,13 @@ class CartItemForm(forms.ModelForm):
         model = CartItem
         exclude = ("cart", "product")
 
-class SignUpForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-        for field in self.visible_fields():
-            field.field.widget.attrs["class"] = "form-control"
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, required=True)
 
     class Meta:
         model = User
-        fields = ("username", "password")
+        fields = ('username', 'email', 'password1', 'password2')
+
+
+
+

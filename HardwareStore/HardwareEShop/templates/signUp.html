@@ -48,8 +48,17 @@
     <h3>Sign Up</h3>
     <form method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form.username }}
+        <p>Username</p>
+        {{ form.email }}
+        <p>Email</p>
+        {{ form.password1 }}
+        <p>Password</p>
+        {{ form.password2 }}
+        <p>Repeat password</p>
+        <div>
         <button type="submit" class="btn btn-warning" style="margin-top: 20px"> Submit </button>
+        </div>
     </form>
 </div>
 </body>

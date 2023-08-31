@@ -52,7 +52,7 @@
                     <div class="card-body" style="height: 400px">
                         <img src="{{MEDIA_URL}}{{cart_item.product.image.url}}" class="card-img-top" alt="">
                         <p class="card-text">{{ cart_item.product }}</p>
-                        <p class="card-text"> Price: {{ cart_item.product.price }}</p>
+                        <p class="card-text"> Price: {{ cart_item.product.price }} MKD </p>
                         <a href="{% url 'removeQuantityOfCartItem' cart_item.id %}" class="btn btn-primary">-</a>
                         <span class="card-text"> {{ cart_item.quantity }} </span>
                         <a href="{% url 'addQuantityOfCartItem' cart_item.id %}" class="btn btn-primary">+</a>
