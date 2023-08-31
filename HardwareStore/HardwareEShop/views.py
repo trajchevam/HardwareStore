@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from .models import Product, CartItem, Cart
 from .forms import CartItemForm, SignUpForm
 
-# Create your views here.
 def index(request):
     querryset = Product.objects.all()
     user = request.user
@@ -50,7 +49,7 @@ def cart(request):
 
     context = {
         "cart_items": cart_items,
-        "sum": all_total,
+        "total": all_total,
     }
 
     return render(request, 'cart.html', context=context)
@@ -61,17 +60,26 @@ def addCartItem (request, product_id):
     if request.method == "POST":
         form = CartItemForm(request.POST)
         if form.is_valid():
-            cartItem = form.save(commit=False) #ostavame mozhnost da napravime override na polinjata
+            cartItem = form.save(commit=False)
             cart = Cart.objects.get(user=request.user)
             cartItem.cart = cart
-            product = Product.objects.get(id = product_id)
-            cartItem.product = product
-            cartItem.save()
-            return redirect('index')
+            product = Product.objects.get(id=product_id)
+
+            try:
+                cartItem = cart.cartitem_set.get(product = product)
+                cartItem.quantity = cartItem.quantity + int(request.POST.get('quantity'))
+                cartItem.save()
+                return redirect('cart')
+            except CartItem.DoesNotExist:
+                cartItem.product = product
+                cartItem.save()
+                return redirect('cart')
     else:
         form = CartItemForm()
 
-    return render(request, "addCartItem.html", {"form": form})
+    product = Product.objects.get(id = product_id)
+
+    return render(request, "addCartItem.html", {"form": form, "product": product})
 
 @login_required
 def addQuantityOfCartItem(request, cart_item_id):
@@ -100,3 +108,23 @@ def deleteCartItem(request, cart_item_id):
 def account(request):
     context = {"user": request.user}
     return render(request,'account.html', context=context)
+
+@login_required
+def orderInformation(request):
+    cart = Cart.objects.get(user=request.user)
+    cart_items = cart.cartitem_set.all()
+    all_total = 0
+
+    for cart_item in cart_items:
+        all_total += cart_item.product.price * cart_item.quantity
+
+    context = {
+        "cart_items": cart_items,
+        "total": all_total,
+    }
+
+    return render(request,'orderInformation.html', context=context)
+
+@login_required
+def successfulOrder(request):
+    return render(request,'successfulOrder.html')

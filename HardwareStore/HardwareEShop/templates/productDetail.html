@@ -9,7 +9,7 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background: white">
     <div class="container">
         <a class="navbar-brand" href="{% url 'index' %}" style="width: 10%">
                 <img src="/images/images/Group 8.png" alt="logo" style="width: 80%">
@@ -33,6 +33,11 @@
                     <a class="nav-link" href="{% url 'signUp' %}">Sign up</a>
                 </li>
              {% endif %}
+             <li class="nav-item active" style="margin-right: -30px;">
+                <a class="nav-link" href="{% url 'account' %}">
+                    <img src="/images/images/Group 14.png" alt="cart" style="width: 50%">
+                </a>
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'cart' %}">
                     <img src="/images/images/Group 10.png" alt="cart" style="width: 50%">
@@ -71,7 +76,13 @@
     </div>
 </div>
 
-
+<footer class="bg-light text-center py-3" style="margin: 20px">
+    <p>
+        &copy; HardwareStore 2023
+        <br>
+        All rights reserved
+    </p>
+</footer>
 
 </body>
 </html>

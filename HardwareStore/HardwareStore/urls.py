@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from HardwareEShop.views import index, products, cart, addCartItem, deleteCartItem, signUp, account, addQuantityOfCartItem, removeQuantityOfCartItem, productDetails
+from HardwareEShop.views import index, products, cart, addCartItem, deleteCartItem, signUp, \
+    account, addQuantityOfCartItem, removeQuantityOfCartItem, productDetails, orderInformation, successfulOrder
 from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -35,4 +36,6 @@ urlpatterns = [
     path('cart/addQuantityOfCartItem/<int:cart_item_id>', addQuantityOfCartItem, name="addQuantityOfCartItem"),
     path('cart/removeQuantityOfCartItem/<int:cart_item_id>', removeQuantityOfCartItem, name="removeQuantityOfCartItem"),
     path('cart/deleteCartItem/<int:cart_item_id>/', deleteCartItem, name="deleteCartItem"),
+    path('cart/orderInformation', orderInformation, name="orderInformation"),
+    path('cart/orderInformation/successfulOrder', successfulOrder, name="successfulOrder"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
